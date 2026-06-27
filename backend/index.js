@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const { globalRateLimiter, inputShield } = require('./middleware/security');
@@ -11,6 +12,7 @@ const chatbotRouter = require('./routes/chatbot');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const isProduction = process.env.NODE_ENV === 'production';
 
 // 1. Core Security Middlewares
 app.use(helmet()); // Sets protective HTTP headers
@@ -38,13 +40,30 @@ app.use('/api/auth', authRouter);
 app.use('/api/application', appRouter);
 app.use('/api/chatbot', chatbotRouter);
 
-// 4. Global 404 Handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    error: 'Requested API resource not found on SmartPassport AI server.'
+// 4. Production: Serve React frontend from /public
+if (isProduction) {
+  app.use(express.static(path.join(__dirname, 'public')));
+
+  // SPA catch-all: any non-API route serves index.html for React Router
+  app.get('*', (req, res) => {
+    // Don't catch API routes
+    if (req.path.startsWith('/api') || req.path.startsWith('/health')) {
+      return res.status(404).json({
+        success: false,
+        error: 'Requested API resource not found on SmartPassport AI server.'
+      });
+    }
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
-});
+} else {
+  // Development: 404 for any unmatched route
+  app.use((req, res) => {
+    res.status(404).json({
+      success: false,
+      error: 'Requested API resource not found on SmartPassport AI server.'
+    });
+  });
+}
 
 // 5. Global Error Handling Middleware
 app.use((err, req, res, next) => {

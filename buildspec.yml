@@ -1,19 +1,34 @@
+##############################################################
+# SmartPassport AI – AWS CodeBuild Specification
+# Builds the React frontend and outputs static files for S3
+##############################################################
 version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 18
     commands:
-      - echo Installing...
+      - echo "===== Installing Frontend Dependencies ====="
+      - cd frontend
+      - npm ci
+      - cd ..
 
   build:
     commands:
-      - echo Build started
-      - echo No build needed
+      - echo "===== Building Frontend Production Bundle ====="
+      - cd frontend
+      - npm run build
+      - cd ..
+      - echo "===== Build completed on $(date) ====="
 
   post_build:
     commands:
-      - echo Build completed
+      - echo "===== Build artifacts ready for S3 deployment ====="
 
 artifacts:
+  # Output ONLY the built frontend files (from frontend/dist/)
+  base-directory: frontend/dist
   files:
     - '**/*'
+  discard-paths: no

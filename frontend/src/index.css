@@ -1,0 +1,91 @@
+/* SMARTPASSPORT CORE CSS SYSTEM - POSTCSS COMPILE ACTIVE */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100;
+  }
+}
+
+/* Custom Scrollbar System for Premium Government Portal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gov-blue/50 hover:bg-gov-navy/80 rounded-md transition-all;
+}
+
+/* Glassmorphism Premium Cards style */
+.glass-panel {
+  @apply bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 shadow-xl shadow-slate-100/10 dark:shadow-none;
+}
+
+/* Saffron & Green Slogan Accents */
+.national-accent {
+  background: linear-gradient(90deg, #ff671f 0%, #ffffff 50%, #046a38 100%);
+  height: 4px;
+}
+
+/* Card Glow Effect */
+.card-hover-glow {
+  @apply hover:shadow-2xl hover:shadow-gov-blue/10 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300;
+}
+
+/* Loading skeletal loaders styles */
+.skeleton {
+  @apply animate-pulse bg-slate-200 dark:bg-slate-700 rounded;
+}
+
+/* Government Stamp Badge Watermark Style */
+.badge-watermark {
+  background-image: radial-gradient(circle, rgba(11, 37, 69, 0.03) 10%, transparent 11%);
+  background-size: 12px 12px;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Animated Rotating World Globe & Satellite Orbit */
+@keyframes globe-spin {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-180px);
+  }
+}
+.animate-globe-spin {
+  animation: globe-spin 24s linear infinite;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-orbit-spin {
+  animation: orbit-spin 36s linear infinite;
+  transform-origin: 100px 100px;
+}
+
+
