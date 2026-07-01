@@ -70,7 +70,7 @@ export default function Navbar({ setView, setAuthIsLogin, handleServiceSelect, h
           </svg>
           <div class="text-left">
             <h1 class="font-extrabold text-[#112d53] dark:text-white text-2xl tracking-tight leading-none font-serif flex items-center gap-1.5">
-              <span>GlobalPassport AI India</span>
+              <span>SmartPassport AI India</span>
             </h1>
             <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1.5 font-bold uppercase tracking-wider">
               {lang === 'EN' ? 'Ministry of External Affairs, Government of India' : 'विदेश मंत्रालय, भारत सरकार'}
